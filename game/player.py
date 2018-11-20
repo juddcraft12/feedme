@@ -22,7 +22,7 @@ class PlayerStart(object):
     def getAttackValue(self):
         return self.attack
 
-    def getDefence(self):#what is self?
+    def getDefence(self):
         return "defence: ", self.defence
 
     def getDefenceValue(self):
