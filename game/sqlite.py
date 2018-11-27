@@ -13,7 +13,7 @@ def db_connect(db_path=DEFAULT_PATH):
 
 print ("...Opened database successfully")
 
-class Database(object):
+class Counter(object):
     def __init__(self, count):
         self.count = count        
 
@@ -24,7 +24,8 @@ class Database(object):
     def getCount(self):
         return self.count
 
-data = Database(3)
+data = Counter(3)
+
 def incrementCounter():
     data.add()
     data.getCount()
@@ -59,22 +60,28 @@ def insert_record_player(db_connect, id, name, health, attack, defence):
 
 incrementCounter()
 
-# db_connect().execute('''CREATE TABLE PLAYER
-#         (ID         INT     PRIMARY KEY     NOT NULL,
-#          NAME       TEXT    NOT NULL,
-#          HEALTH     INT     NOT NULL,
-#          ATTACK     INT,
-#          DEFENCE    INT);''')
-# print ("Table created successfully")
+def create_database_table(db_connect):
+    db_connect().execute('''CREATE TABLE PLAYER
+          (ID        INT     PRIMARY KEY     NOT NULL,
+          NAME       TEXT    NOT NULL,
+          HEALTH     INT     NOT NULL,
+          ATTACK     INT,
+          DEFENCE    INT);''')
+    print ("Table created successfully")
 
 insert_record_player(db_connect(), data.getCount(), "dummy", 1, 2, 3)
 
-# player = (0, "dummy", 1, 2, 3)
-# create_record_player(conn, player)
 
+def display_database_values(db_connect):
+    print ("...Fetching DB records")
+    cur = db_connect().cursor()
+    cur = db_connect().execute("SELECT * FROM PLAYER")
+    for row in cur:
+        print "ID = ", row[0], "\n"
+
+display_database_values(db_connect)
 # conn.execute("INSERT INTO PLAYER (ID,NAME,HEALTH,ATTACK,DEFENCE) \
 #     VALUES (1, 'Test', 10, 5, 10 )");
-
 # conn.commit()
 # print ("Records created successfully")
 
@@ -86,6 +93,6 @@ insert_record_player(db_connect(), data.getCount(), "dummy", 1, 2, 3)
 #     print "ATTACK = ", row[3]
 #     print "DEFENCE = ", row[4], "\n"
 
-print ("Operation done successfully")
+# print ("Operation done successfully")
 
 db_connect().close()
