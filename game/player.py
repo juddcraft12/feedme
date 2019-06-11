@@ -10,15 +10,6 @@ class PlayerStart(object):
         self.attack = attack
         self.defence = defence
 
-    def getHealth(self):
-        return "health: ", self.health
-
-    def getHealthValue(self):
-        return self.health
-        
-    def getAttack(self):
-        return "attack: ", self.attack
-    
     def getAttackValue(self):
         return self.attack
 
